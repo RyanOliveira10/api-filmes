@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Container, Movie, MovieList } from "./styles";
-import { apiKey, APIkey } from "../../config/ApiKey";
+import { apiKey } from "../../config/ApiKey";
+import { Link } from "react-router-dom";
+import { image_path } from "../../config/image";
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
-  const image_path = "https://image.tmdb.org/t/p/w500";
 
   useEffect(() => {
     fetch(
@@ -16,14 +17,14 @@ export default function Home() {
 
   return (
     <Container>
-      <h1>Movies</h1>
+      <h1>Filmes</h1>
       <MovieList>
         {movies.map((movie) => {
           return (
             <Movie key={movie.id}>
-              <a href="http://google.com">
+              <Link to={`/details/${movie.id}`}>
                 <img src={`${image_path}${movie.poster_path}`} alt={movie.title} />
-              </a>
+              </Link>
               <span>{movie.title}</span>
             </Movie>
           );
